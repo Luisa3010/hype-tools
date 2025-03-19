@@ -330,8 +330,9 @@ def get_positions_from_config(config):
 def calculate_coverage(replaced_motifs, read):
     # Calculate the percentage of the read that is covered by the replaced motifs
     covered_bases = sum((row['end_pos']  - row['start_pos']) for _, row in replaced_motifs.iterrows())
-    if len(read) == 0:
-        return -1
+
+    if len(read) == 0 or covered_bases == 0:
+        return 0
     return covered_bases / len(read)
 
 
