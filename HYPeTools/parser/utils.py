@@ -12,21 +12,19 @@ def create_folder(path):
         print(f"Error creating folder: {e}")
         raise
 
-# create_output_folder('test.fasta')
-
-
 
 def create_output_filename(fasta_file, start_index=0, end_index=float('inf')):
     # Create output file - use only the filename, not the full path
     filename = os.path.basename(fasta_file)
     output_folder = os.path.dirname(fasta_file)
     # Add start and end indices to filename if not default values
-    index_suffix = ""
-    if start_index != 0:
-        index_suffix += f"_start{start_index}"
+    # Create extension for output files
+    ext = ""
+    if start_index != 0 and end_index == float('inf'):
+        ext = "_" + str(start_index)
     if end_index != float('inf'):
-        index_suffix += f"_end{end_index}"
-    return output_folder + f'/{'.'.join(filename.split(".")[:-1])}_replace_parse_results{index_suffix}.txt'
+        ext = "_" + str(start_index) + "to" + str(end_index)
+    return output_folder + f'/{'.'.join(filename.split(".")[:-1])}_replace_parse_result{ext}.txt'
 
 
 

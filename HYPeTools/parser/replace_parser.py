@@ -432,7 +432,7 @@ def replace_main(motifs_file, hvds_file, input_path, start_index, end_index):
         for idx, (header, read) in enumerate(tqdm(fasta_reader, total=total_seqs, desc="Processing sequences", unit="%")):
 
             # Only process sequences within the specified range
-            if idx < start_index or idx >= end_index:
+            if idx < start_index or idx > end_index:
                 continue
 
             # Extract the HVD

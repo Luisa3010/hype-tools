@@ -9,7 +9,6 @@ import os
 
 
 # Replace Parser Tool
-
 @click.group()
 def cli():
     """HYPeTools CLI"""
@@ -19,7 +18,7 @@ def cli():
 @click.option("--motifs-file", default="HYPeTools/data/motifs/GPallida_HYP1_17_03_25.json", help="JSON file containing motif dna and protein sequences")
 @click.option("--hvds-file", default="HYPeTools/data/hvd_markers/GPallida_HYP1_HVD_markers.fasta", help="FASTA file containing the HVD marker sequences")
 @click.option("--start-index", default=0, type=int, help="Start index of the first read to process")
-@click.option("--end-index", default=-1, type=int, help="End index of the last read to process (-1 for all reads)")
+@click.option("--end-index", default=-1, type=int, help="End index of the last read to process (default:-1 for all reads)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the replace parser tool")
 def replace_parser(input_path, motifs_file, hvds_file, start_index, end_index, help_info):
     """Run the Replace Parser Tool
