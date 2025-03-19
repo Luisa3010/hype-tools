@@ -18,7 +18,7 @@ def cli():
 @click.option("--motifs-file", default="HYPeTools/data/motifs/GPallida_HYP1_17_03_25.json", help="JSON file containing motif dna and protein sequences")
 @click.option("--hvds-file", default="HYPeTools/data/hvd_markers/GPallida_HYP1_HVD_markers.fasta", help="FASTA file containing the HVD marker sequences")
 @click.option("--start-index", default=0, type=int, help="Start index of the first read to process")
-@click.option("--end-index", default=-1, type=int, help="End index of the last read to process (default:-1 for all reads)")
+@click.option("--end-index", default=-1, type=int, help="End index of the last read to process (default: -1 for all reads)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the replace parser tool")
 def replace_parser(input_path, motifs_file, hvds_file, start_index, end_index, help_info):
     """Run the Replace Parser Tool
@@ -168,13 +168,13 @@ def create_synth_reads(reads_file, length, n_real, n_hybrid, n_severe, n_random_
                n=n, real_input=real_input, motifs=motifs, output_file=output_file)
 
 @cli.command()
-@click.argument("parser_output")
+@click.argument("parser_output_file")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the generate report tool")
-def generate_report(parser_output, help_info):
+def generate_report(parser_output_file, help_info):
     """Generate a report from parser output
     
     Args:
-        parser_output: Path to the parser output file
+        parser_output_file: Path to the parser output file
     """
     if help_info:
         click.echo("""
@@ -186,30 +186,30 @@ def generate_report(parser_output, help_info):
             - Quality distribution of reads (low, medium, high, and perfect quality)
 
             Required Arguments:
-            parser_output - Path to the parser output file
+            parser_output_file - Path to the parser output file
 
             Example Usage:
             hypetools generate-report parser_output.pkl
         """)
 
-    if not os.path.exists(parser_output):
-        click.echo(f"Error: Parser output file '{parser_output}' does not exist.")
+    if not os.path.exists(parser_output_file):
+        click.echo(f"Error: Parser output file '{parser_output_file}' does not exist.")
         return
     
-    report_main(parser_output)
+    report_main(parser_output_file)
 
 @cli.command()
-@click.argument("parser_output")
+@click.argument("parser_output_file")
 @click.option("--min-alignment-score", default=0, help="Minimum alignment score threshold")
 @click.option("--min-avg-score", default=0, help="Minimum average alignmentscore threshold")
 @click.option("--max-excluded-pct", default=1, help="Maximum excluded percentage threshold")
 @click.option("--min-quality-score", default=1, help="Minimum quality score threshold")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the filter tool")
-def filter_parsed(parser_output, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score, help_info):
+def filter_parsed(parser_output_file, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score, help_info):
     """Filter parsed reads based on quality metrics
     
     Args:
-        parser_output: Path to the parser output file
+        parser_output_file: Path to the parser output file
         min_alignment_score: Minimum alignment score threshold
         min_avg_score: Minimum average score threshold
         max_excluded_pct: Maximum excluded percentage threshold
@@ -226,28 +226,28 @@ def filter_parsed(parser_output, min_alignment_score, min_avg_score, max_exclude
             - Minimum quality score: Threshold for quality scores
 
             Required Arguments:
-            parser_output - Path to the parser output file
+            parser_output_file - Path to the parser output file
 
             Example Usage:
             hypetools filter-parsed parser_output.fasta --min-alignment-score 0.7
         """)
 
-    if not os.path.exists(parser_output):
-        click.echo(f"Error: Parser output file '{parser_output}' does not exist.")
+    if not os.path.exists(parser_output_file):
+        click.echo(f"Error: Parser output file '{parser_output_file}' does not exist.")
         return
     
-    filter_parsed_main(parser_output, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score)
+    filter_parsed_main(parser_output_file, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score)
 
 @cli.command()
-@click.argument("parser_output")
+@click.argument("parser_output_file")
 @click.option("--dna/--no-dna", default=True, help="Output DNA motifs (default: True)")
 @click.option("--protein/--no-protein", default=True, help="Output protein motifs (default: True)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the compacter tool")
-def compact_output(parser_output, dna, protein, help_info):
+def compact_output(parser_output_file, dna, protein, help_info):
     """Create compact representation of parsed reads
     
     Args:
-        parser_output: Path to the parser output file
+        parser_output_file: Path to the parser output file
         dna: Whether to output DNA motifs
         protein: Whether to output protein motifs
     """
@@ -259,7 +259,7 @@ def compact_output(parser_output, dna, protein, help_info):
             It can output both DNA and protein motif sequences in FASTA format.
 
             Required Arguments:
-            parser_output - Path to the parser output file
+            parser_output_file - Path to the parser output file
 
             Options:
             --dna/--no-dna - Include/exclude DNA motifs output (default: include)
@@ -269,11 +269,11 @@ def compact_output(parser_output, dna, protein, help_info):
             hypetools compact-output parser_output.fasta --dna --no-protein
         """)
 
-    if not os.path.exists(parser_output):
-        click.echo(f"Error: Parser output file '{parser_output}' does not exist.")
+    if not os.path.exists(parser_output_file):
+        click.echo(f"Error: Parser output file '{parser_output_file}' does not exist.")
         return
     
-    compacter_output_main(parser_output, dna, protein)
+    compacter_output_main(parser_output_file, dna, protein)
 
 if __name__ == "__main__":
     cli()

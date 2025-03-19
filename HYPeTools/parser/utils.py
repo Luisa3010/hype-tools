@@ -2,6 +2,7 @@ import os
 import json
 from HYPeTools.utils import translate
 from Levenshtein import distance as levenshtein_distance
+import pandas as pd
 
 def create_folder(path):
     # Create folder if it doesnt exist yet 
