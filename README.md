@@ -93,9 +93,37 @@ The input can be a single fasta file or a directory containing multiple fasta fi
 With this tool, the user will be able to generate a report about about a parser output. The report will contain information about the HVDs, the motifs, and the quality of the parsing.
 
 
-### Simplify Parsed Reads 
+```bash
+hypetools generate-report path/to/your_replace_parse_results.txt 
+```
+
+
+### Compacter Parsed Reads 
 
 With this tool, the user is be able to generate a compacted version of the parsed reads. The simplified version only contains the sequence header and the motifs, no quality information.
+
+
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt --no-dna    
+```
+
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt     
+```
+
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt --no-protein    
+```
+
+
+
+TODO: 
+
+- Test synth test filter
+
+
+
+
 
 
 ### Filter Parsed Reads
