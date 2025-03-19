@@ -4,10 +4,12 @@ from .utils import load_parser_output
 def compacter_output(parser_output_path, dna = True, protein = True):
 
     # Create output files
-    with open(f'{parser_output_path}_compact_dna.fasta', 'w') as f:
-        pass
-    with open(f'{parser_output_path}_compact_protein.fasta', 'w') as f:
-        pass
+    if dna:
+        with open(f'{parser_output_path}_compact_dna.fasta', 'w') as f:
+            pass
+    if protein:
+        with open(f'{parser_output_path}_compact_protein.fasta', 'w') as f:
+            pass
 
     # Load parser output    
     parser_output = load_parser_output(parser_output_path)
