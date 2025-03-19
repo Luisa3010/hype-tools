@@ -11,11 +11,11 @@ This is a collection of tools for analyzing HYPe sequences.
 ### HVD detection
 
 This tool splits HYPe reads into HVDs (Hypervariable Domains) and conserved domains from FASTA files by identifying the positions of the 
-specified start and end markers. It can process either a single FASTA file or a directory of FASTA files.
+specified start and end markers. It can process either a single FASTA file or a directory of FASTA files. Per default, the tool will use the HVD markers from G. pallida HYP1 and process all the reads.
 
 
 ```bash
-hype-tools hvd --fasta input.fasta --output output.fasta
+ hypetools extract-hvds "path/to/folder/or/fasta/file.fasta" --hvd-markers "path/to/hvd/markers.fasta" --start-index 2 --end-index 5
 ```
 
 
