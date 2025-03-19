@@ -35,6 +35,13 @@ def process_fasta_file(input_path, output_path, start, end, start_index, end_ind
         open(c1_outfile, 'w') as c1_outfile, open(c2_outfile, 'w') as c2_outfile:
         for i, (header, sequence) in enumerate(read_fasta(input_path)):
 
+            # Skip reads before start_index
+            if i < start_index:
+                continue
+            # Skip reads after end_index
+            if i > end_index:
+                break
+
             # Process the read to extract HVD
             hvd, c1, c2 = extract_hvd_from_read(sequence, start, end)
             # Write header and HVD sequence
