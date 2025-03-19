@@ -7,14 +7,17 @@ from HYPeTools.parser.filter_parse_output import filter_parsed_main
 from HYPeTools.parser.compacter_parse_output import compacter_output_main
 import os
 
+
+# Replace Parser Tool
+
 @click.group()
 def cli():
     """HYPeTools CLI"""
 
 @cli.command()
 @click.argument("input_path")
-@click.option("--motifs-file", default="/HYPeTools/data/motifs/GPallida_HYP1_17_03_25.json", help="JSON file containing motif dna and protein sequences")
-@click.option("--hvds-file", default="/HYPeTools/data/hvd_markers/GPallida_HYP1_17_03_25.fasta", help="FASTA file containing the HVD marker sequences")
+@click.option("--motifs-file", default="HYPeTools/data/motifs/GPallida_HYP1_17_03_25.json", help="JSON file containing motif dna and protein sequences")
+@click.option("--hvds-file", default="HYPeTools/data/hvd_markers/GPallida_HYP1_HVD_markers.fasta", help="FASTA file containing the HVD marker sequences")
 @click.option("--start-index", default=0, type=int, help="Start index of the first read to process")
 @click.option("--end-index", default=-1, type=int, help="End index of the last read to process (-1 for all reads)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the replace parser tool")
