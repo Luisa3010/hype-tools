@@ -82,7 +82,7 @@ Quality measures:
 
 
 ```bash
-hype-tools parse --motifs motifs.json --hvd-markers hvd_markers.fasta --input input.fasta 
+ hypetools replace-parser /path/to/folder/or/fasta/file.fasta --hvds-file /path/to/hvd/markers.fasta --motifs-file /path/to/motifs.json --start-index 3 --end-index 6 
 ```
 
 The input can be a single fasta file or a directory containing multiple fasta files. 
