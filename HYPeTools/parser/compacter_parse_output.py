@@ -32,8 +32,5 @@ def compacter_output(parser_output_path, dna = True, protein = True):
                 f.write(f"{header}\n{protein_motifs}\n")
 
 
-
-
-
 def compacter_output_main(parser_output_path, dna = True, protein = True):
     compacter_output(parser_output_path, dna, protein)    
