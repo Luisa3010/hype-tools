@@ -13,18 +13,22 @@ def compacter_output(parser_output_path, dna = True, protein = True):
     parser_output = load_parser_output(parser_output_path)
 
     for result in parser_output:
+        
+        if result.motifs_df is None:
+            continue
+
         header = result.header
 
         if dna:
             dna_motifs = " ".join(result.motifs_df['motif'].tolist())
+            with open(f'{parser_output_path}_compact_dna.fasta', 'a') as f:
+                f.write(f"{header}\n{dna_motifs}\n")
+
         if protein:
             protein_motifs = " ".join(result.motifs_df['amino_acid'].tolist())
+            with open(f'{parser_output_path}_compact_protein.fasta', 'a') as f:
+                f.write(f"{header}\n{protein_motifs}\n")
 
-        # Write to output files
-        with open(f'{parser_output_path}_compact_dna.fasta', 'a') as f:
-            f.write(f"{header}\n{dna_motifs}\n")
-        with open(f'{parser_output_path}_compact_protein.fasta', 'a') as f:
-            f.write(f"{header}\n{protein_motifs}\n")
 
 
 
