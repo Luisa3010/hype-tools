@@ -10,7 +10,7 @@ specified start and end markers. It can process either a single FASTA file or a 
 import os
 import argparse
 from tqdm import tqdm
-from utils import extract_hvd_from_read
+from .utils import extract_hvd_from_read
 
 def process_fasta_file(input_path, output_path, start, end):
     hvd_outfile = output_path + "_hvd.fasta"

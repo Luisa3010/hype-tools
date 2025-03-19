@@ -3,8 +3,8 @@ from HYPeTools.parser.replace_parser import replace_main
 from HYPeTools.HVD.extract_HVDs import extract_main
 from HYPeTools.synthetic.create_synthetic_hyp_reads import synth_main
 from HYPeTools.parser.report import report_main
-from HYPeTools.parser.filter_parsed import filter_parsed_main
-from HYPeTools.parser.compacter_output import compacter_output_main
+from HYPeTools.parser.filter_parse_output import filter_parsed_main
+from HYPeTools.parser.compacter_parse_output import compacter_output_main
 import os
 
 @click.group()

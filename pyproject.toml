@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hype-tools"
 version = "0.1.0"
-description = "A collection of tools for analyzing HYPe sequences"
+description = "A collection of tools for analyzing HYPe reads"
 authors = [{ name = "Luisa Kalkert", email = "luisa.kalkert@gmx.de" }]
 readme = "README.md"
 dependencies = [
@@ -21,4 +21,4 @@ dependencies = [
 ]
 
 [project.scripts]
-hype-tools  = "HYPeTools.cli:main"
+hypetools = "HYPeTools.cli:cli"
