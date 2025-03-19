@@ -13,10 +13,10 @@ def cli():
 
 @cli.command()
 @click.argument("input_path")
-@click.option("--motifs-file", default="/data/motifs/GPallida_HYP1_17_03_25.json", help="JSON file containing motif dna and protein sequences")
-@click.option("--hvds-file", default="/data/hvds/GPallida_HYP1_17_03_25.fasta", help="FASTA file containing the HVD marker sequences")
+@click.option("--motifs-file", default="/HYPeTools/data/motifs/GPallida_HYP1_17_03_25.json", help="JSON file containing motif dna and protein sequences")
+@click.option("--hvds-file", default="/HYPeTools/data/hvd_markers/GPallida_HYP1_17_03_25.fasta", help="FASTA file containing the HVD marker sequences")
 @click.option("--start-index", default=0, type=int, help="Start index of the first read to process")
-@click.option("--end-index", default=float('inf'), type=int, help="End index of the last read to process")
+@click.option("--end-index", default=-1, type=int, help="End index of the last read to process (-1 for all reads)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the replace parser tool")
 def replace_parser(input_path, motifs_file, hvds_file, start_index, end_index, help_info):
     """Run the Replace Parser Tool
@@ -55,20 +55,26 @@ def replace_parser(input_path, motifs_file, hvds_file, start_index, end_index, h
         click.echo(f"Error: HVDs file '{hvds_file}' does not exist.")
         return
     
+    if end_index == -1:
+        end_index = float('inf')
+    
     replace_main(motifs_file, hvds_file, input_path, start_index, end_index)
 
 @cli.command()
 @click.argument("input_path")
-@click.option("--hvd-markers", default="/data/hvds/GPallida_HYP1_17_03_25.fasta", 
+@click.option("--hvd-markers", default="HYPeTools/data/hvd_markers/GPallida_HYP1_HVD_markers.fasta",
               help="FASTA file containing the HVD marker sequences (default: GPallida HYP1 markers)")
-@click.option("--output-file", default=None, help="Output FASTA file (default: auto-generated from input filename)")
+@click.option("--start-index", default=0, type=int, help="Start index of the first read to process")
+@click.option("--end-index", default=-1, type=int, help="End index of the last read to process (-1 for all reads)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the extract hvds tool")
-def extract_hvds(input_path, hvd_markers, output_file, help_info):
+def extract_hvds(input_path, hvd_markers, start_index, end_index, help_info):
     """Extract HVDs from input sequences
     
     Args:
         input_path: Input path to process, can be a file or a folder, if it is a folder, all fasta files in the folder will be processed
         hvd_markers: Optional FASTA file containing HVD marker sequences
+        start_index: Optional start index of the first read to process - defaults to 0
+        end_index: Optional end index of the last read to process - defaults to all reads
     """
 
     if help_info:
@@ -93,7 +99,10 @@ def extract_hvds(input_path, hvd_markers, output_file, help_info):
         click.echo(f"Error: HVDs file '{hvd_markers}' does not exist.")
         return
     
-    extract_main(input_path, hvd_markers, output_file)
+    if end_index == -1:
+        end_index = float('inf')
+
+    extract_main(input_path, hvd_markers, start_index, end_index)
 
 
 @cli.command()

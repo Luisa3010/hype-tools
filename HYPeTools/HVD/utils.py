@@ -36,11 +36,11 @@ def extract_hvd_from_read(read, start, end, threshold = 0.75, rev = True):
 
     # if scores are still too low, return empty string
     if start_score < threshold or end_score < threshold:
-        return ""
+        return "", "", ""
         
     # verify the HVD boundaries make sense
     if (end_pos - len(end) - start_pos) < 0:
-        return ""
+        return "", "", ""
 
     # return the HVD
     return read[start_pos:end_pos - len(end)], read[:start_pos], read[end_pos -  len(end):]

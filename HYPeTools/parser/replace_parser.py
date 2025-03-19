@@ -2,7 +2,7 @@ import pandas as pd
 from ..alignment.semiglobal import semiglobal_matrix
 from itertools import chain, combinations, product
 from HYPeTools.utils import find_fastas, read_fasta, dumb_consensus, translate, consensus_table
-from .utils import parse_arguments, create_folder, read_motifs, translate_motif, create_output_filename, write_results
+from .utils import create_folder, read_motifs, translate_motif, create_output_filename, write_results
 from ..HVD.utils import extract_hvd_from_read
 import random
 import os
