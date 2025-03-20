@@ -1,4 +1,4 @@
-from ..alignment.semiglobal import semiglobal_matrix
+from HYPeTools.alignment.semiglobal import semiglobal_matrix
 import numpy as np
 
 def find_in_read(dna, read):
