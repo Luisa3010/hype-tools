@@ -268,6 +268,7 @@ def generate_synthetic_dataset(
     
     # Load motifs
     motifs = load_motifs(motifs_path)
+    print(motifs)
     synthetic_dataset = []
     sequence_types = []
     # Set up logging

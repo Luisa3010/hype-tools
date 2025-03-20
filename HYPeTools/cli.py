@@ -108,37 +108,38 @@ def extract_hvds(input_path, hvd_markers, start_index, end_index, help_info):
 
 
 @cli.command()
-@click.argument("reads_file")
-@click.option("--n", default=1000, help="Number of reads to generate, only used if n-real, n-hybrid, n-severe, n-random-motif, n-block or n-full-random are not provided")
+@click.argument("output_dir")
+@click.option("--n", default=600, help="Number of reads to generate, only used if n-real, n-hybrid, n-severe, n-random-motif, n-block or n-full-random are not provided")
 @click.option("--n-real", default=0, help="Number of real reads to generate")
 @click.option("--n-hybrid", default=0, help="Number of hybrid reads to generate")
 @click.option("--n-severe", default=0, help="Number of severe mutation reads to generate")
 @click.option("--n-random-motif", default=0, help="Number of random motif reads to generate")
 @click.option("--n-block", default=0, help="Number of block mutation reads to generate")
 @click.option("--n-full-random", default=0, help="Number of fully random reads to generate")
-@click.option("--real-input", default="/data/germline/GPallida_HYP1_17_03_25.fasta", 
+@click.option("--real-input", default="HYPeTools/data/germline/GPallida_HYP1_top_seqs_dna_17_03_2025.fasta", 
               help="FASTA file containing real sequences (default: GPallida germline)")
-@click.option("--motifs", default="/data/motifs/GPallida_HYP1_17_03_25.json",
+@click.option("--motifs", default="HYPeTools/data/motifs/GPallida_HYP1_motifs_17_03_synthetic_base.fasta",
               help="JSON file containing motif definitions (default: GPallida motifs)")
-@click.option("--output-file", default=None, 
-              help="Output FASTA file (default: auto-generated from input filename)")
+@click.option("--hvd-markers", default="HYPeTools/data/hvd_markers/GPallida_HYP1_HVD_markers.fasta",
+              help="FASTA file containing HVD marker sequences (default: GPallida HYP1 markers)")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the create synth reads tool")
-def create_synth_reads(reads_file, length, n_real, n_hybrid, n_severe, n_random_motif, 
-                      n_block, n_full_random, n, real_input, motifs, output_file, help_info):
+def create_synth_reads(n, n_real, n_hybrid, n_severe, n_random_motif, 
+                      n_block, n_full_random, real_input, motifs, hvd_markers, output_dir, help_info):
+    
     """Create Synthetic HYP Reads
     
     Args:
-        reads_file: Input file name base
+        n: Total number of reads - only used if n-real, n-hybrid, n-severe, n-random-motif, n-block or n-full-random are not provided
         n_real: Number of real reads
         n_hybrid: Number of hybrid reads
         n_severe: Number of severe mutation reads
         n_random_motif: Number of random motif reads
         n_block: Number of block mutation reads
         n_full_random: Number of fully random reads
-        n: Total number of reads
         real_input: Input file containing real sequences
         motifs: JSON file containing motif definitions
-        output_file: Optional output file name
+        hvd_markers: FASTA file containing HVD marker sequences
+        output_dir: Output directory
     """
 
     if help_info:
@@ -148,24 +149,24 @@ def create_synth_reads(reads_file, length, n_real, n_hybrid, n_severe, n_random_
             This tool creates synthetic HYP reads.
 
             Arguments:
-            reads_file - Input file name base
+            n - Total number of reads, only used if n-real, n-hybrid, n-severe, n-random-motif, n-block or n-full-random are not provided
             n_real - Number of real reads
             n_hybrid - Number of hybrid reads
             n_severe - Number of severe mutation reads
             n_random_motif - Number of random motif reads
             n_block - Number of block mutation reads
             n_full_random - Number of fully random reads
-            n - Total number of reads, only used if n-real, n-hybrid, n-severe, n-random-motif, n-block or n-full-random are not provided
             real_input - Input file containing real sequences
             motifs - JSON file containing motif definitions
-            output_file - Optional output file name
+            hvd_markers - FASTA file containing HVD marker sequences
+            output_dir - Output directory
                    
             Defaults to G. Pallida HYP1 reads, motifs and markers.
         """)
                    
-    synth_main(reads_file, length, n_real=n_real, n_hybrid=n_hybrid, n_severe=n_severe,
+    synth_main(n=n, n_real=n_real, n_hybrid=n_hybrid, n_severe=n_severe,
                n_random_motif=n_random_motif, n_block=n_block, n_full_random=n_full_random,
-               n=n, real_input=real_input, motifs=motifs, output_file=output_file)
+               real_reads_file=real_input, motifs=motifs, conserved_file=hvd_markers, output_dir=output_dir)
 
 @cli.command()
 @click.argument("parser_output_file")
