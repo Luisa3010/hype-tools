@@ -1,17 +1,33 @@
+# HYPeTools
+
 This is a collection of tools for analyzing HYPe sequences.
+
+Included tools:
+
+- Detection of HVDs and conserved regions
+- Generation of synthetic HYPe HVDs
+- Parsing of HVDs to motifs
+- Report generation for parsed reads
+- Filtering of parsed reads
+- Compaction of parsed reads
+
+Included data:
+- G. pallida HYP1 HVD markers
+- G. pallida HYP1 Motifs
+- G. pallida HYP1 Germline Sequences
+- Synthetic G. pallida HYP1 example HVDs
 
 ## Installation
 
 
 ...
 
-## Several Tools 
-# Todo Replace with actual commands
+## Tools
 
 ### HVD detection
 
 This tool splits HYPe reads into HVDs (Hypervariable Domains) and conserved domains from FASTA files by identifying the positions of the 
-specified start and end markers. It can process either a single FASTA file or a directory of FASTA files. Per default, the tool will use the HVD markers from G. pallida HYP1 and process all the reads.
+specified start and end markers. It can process either a single FASTA file or a directory of FASTA files. Per default, the tool will use the HVD markers from G. pallida HYP1.
 
 
 ```bash
@@ -21,23 +37,15 @@ specified start and end markers. It can process either a single FASTA file or a 
 
 ### Synthetic data generation
 
-This tool is to generate synthetic HYPe sequences. You can use it to create a synthetic data set to mimick real observed reads.
+This tool can be used to generate synthetic HYPe sequences. You can use it to create a synthetic data set to mimick real observed reads.
 The synthetic data set contains reads from different categories, the user can specify the number of sequences to generate for each category.
 
-- real observed reads - sampled from real data, that can be provided by the user. Per default, the tool will use the real observed HYP1 reads from G. pallida.
+- real observed reads - these should be sampled from real data. Per default, the tool will use the real observed HYP1 reads from G. pallida.
 - hybrid reads - created by combining two real observed HYP1 reads
 - random motif-based reads - created by combining a random number of motifs. The motifs can be provided by the user. Per default, the tool will use the motifs from G. pallida. HYP1. Motifs should be provided in fasta format.
-- block-based reads - created by combining a random number of motifs, but following the block arrangement of real observed HYP1 reads. To use this, the user needs to provide a file containing the motifs in a fasta format. The fasta headers should contain the position of the motif in the HYP block. This format looks like this (Not a real example):
+- block-based reads - created by combining a random number of motifs, but following the block arrangement of real observed HYP1 reads. To use this, the user needs to provide a file containing the motifs in a fasta format. The fasta headers should contain the position of the motif in the HYP block.
 
->YERGGG1_pos1 
-ATGAGAGAGA
->YERGGG2_pos1
-ATGAGAGGGA
->SNRGGG1_pos2
-ATGAGAGAGG
->RDRGD1_pos3 
-ATGAGAG
-
+(Examples for the files the user can provide can be found in the HYPeTools/data folder.)
 
 The reads are created and then mutated, which means indels and SNPs are introduced.
 The mutation rate is on a per base pair basis. The rate is sampled from a normal distribution to resemble the mutation rate of real observed HYP1 reads.
@@ -53,26 +61,27 @@ For the block-based and random motif-based sequences, this length is obtained by
 The user can provide files containing:
 - real observed HYP1 reads
 - motifs
-- short secitons of conserved regions, tose will be flanking the HVDs
+- short sections of conserved regions, these will be flanking the HVDs
 
 
 Additionaly, a file will be created containing information about the synthetic data set - what category the reads belong to, and the motifs used to create the reads, as well as the number of mutations in the reads. 
 
+The user can specify the number of reads to generate for each category.
 
 ```bash
-hype-tools synth --n-real 100 --n-hybrid 100 --n-severe 100 --n-random-motif 100 --n-block 100 --n-full-random 100 --real-input real.fasta --motifs motifs.json --output output.fasta
+hype-tools synth --n-real 100 --n-hybrid 200 --n-severe 100 --n-random-motif 10 --n-block 100 --n-full-random 100 --real-input real.fasta --motifs motifs.json --output output
 ```
-
-or
+of
+or specify the total number of reads to generate and the input file.
 
 ```bash
-hype-tools synth --n 600 --real-input real.fasta --motifs motifs.json --output output.fasta
+hype-tools synth --n 600 --real-input real.fasta --motifs motifs.json --output output
 ```
 
 
 ### HYPe Parsing
 
-This tool processes FASTA files by first detecting Hypervariable Domains (HVDs) and then finding the motifs in the HVDs. The selection of possible motifs and borders need to be provided by the user. This tool will output a table for each read containing the most likely sequence of motifs on a dna and protein level, their positions in the read and the quality of the parsing. If two or more motifs fit equally well, the tool will output all of them for one position.
+This tool processes FASTA files by first detecting HVDs and then finding the motifs in the HVDs. The selection of possible motifs and HVD start and end markers can be provided by the user. This tool will output a table for each read containing the most likely sequence of motifs on a dna and protein level, their positions in the read and the quality of the parsing. If two or more motifs fit equally well, the tool will output all of them for one position.
 
 Quality measures: 
 - Excluded bases: Percentage of the read that is covered by the motifs
@@ -98,14 +107,10 @@ hypetools generate-report path/to/your_replace_parse_results.txt
 ```
 
 
-### Compacter Parsed Reads 
+### Compacted Parsed Reads 
 
-With this tool, the user is be able to generate a compacted version of the parsed reads. The simplified version only contains the sequence header and the motifs, no quality information.
+With this tool, the user is be able to generate a compacted version of the parsed reads file generated by the replace parser. This compacted version only contains the sequence header and the motifs, no quality information.
 
-
-```bash
-hypetools compact-output path/to/your_replace_parse_results.txt --no-dna    
-```
 
 ```bash
 hypetools compact-output path/to/your_replace_parse_results.txt     
@@ -116,23 +121,56 @@ hypetools compact-output path/to/your_replace_parse_results.txt --no-protein
 ```
 
 
-
-TODO: 
-
-- Test synth test filter
-
-
-
-
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt --no-dna    
+```
 
 
 ### Filter Parsed Reads
 
 With this tool, the user is able to filter the parsed reads based on the quality of the parsing. The user can filter based on the minimum alignment score, the excluded percentage, the quality score and the minimum average score.
 
+```bash
+hypetools filter-parsed /path/to/your_replace_parse_results.txt --min-align 0.8 --max-excl-pct 10.0 --min-qual 1.2 --min-avg-align 0.8
+```
+
+The user can filter for the following parameters:
+- Minimum alignment score (0-1) required for individual motifs
+- Minimum average alignment score (0-1) across all motifs in a read
+- Maximum percentage (0-100) of bases that can be excluded from motif matches
+- Minimum quality score (1-2) required for motif assignments
+
+Even if no parameters are provided, the tool will always filter out empty items. E.g. reads that do not have any motifs or reads where no HVD was found.
+
+##### Some suggested values:
+
+Perfectionist:
+- Maximum excluded percentage: 0.0
+- Minimum quality score: 1.2
+- Minimum average alignment score: 1.0
+- Minimum alignment score: 1.0
+
+High-quality:
+- Maximum excluded percentage: 4
+- Minimum quality score: 1.2
+- Minimum average alignment score: 0.8
+
+Medium-quality:
+- Maximum excluded percentage: 6
+- Minimum quality score: 1.2
+- Minimum average alignment score: 0.95
+
+Setting the minimum quality score to 1.2 will remove all reads with ambiguous motifs.
 
 
+## Example Data
 
+This package also includes data for G. pallida HYP1.
+
+-  Synthetically generated G. pallida HYP1 data 
+- G. pallida HY1 HVD markers
+- G. pallida HYP1 Motifs
+- G. pallida HYP1 Germline Sequences
 
 
 
@@ -141,16 +179,3 @@ With this tool, the user is able to filter the parsed reads based on the quality
 ### De-Novo Motif Detection
 
 With this tool, the user will be able to scan a fasta file containing HYPe reads for new, unknown motifs. 
-
-
-
-
-
-## Example Data
-
-Includes 
-Synthetically generated G. pallida HYP1 data 
-G. pallida HY1 HVD markers
-G. pallida HYP1 Motifs
-G. pallida HYP1 Germline Sequences
-
