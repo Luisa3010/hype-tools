@@ -201,20 +201,20 @@ def generate_report(parser_output_file, help_info):
 
 @cli.command()
 @click.argument("parser_output_file")
-@click.option("--min-alignment-score", default=0, help="Minimum alignment score threshold")
-@click.option("--min-avg-score", default=0, help="Minimum average alignmentscore threshold")
-@click.option("--max-excluded-pct", default=1, help="Maximum excluded percentage threshold")
-@click.option("--min-quality-score", default=1, help="Minimum quality score threshold")
+@click.option("--min-align", default=0.0, type=float, help="Minimum alignment score threshold 0 to 1")
+@click.option("--min-avg-align", default=0.0, type=float, help="Minimum average alignment score threshold 0 to 1")
+@click.option("--max-excl-pct", default=100.0, type=float, help="Maximum excluded percentage threshold 0 to 100")
+@click.option("--min-qual", default=1.0, type=float, help="Minimum quality score threshold 1 to 2")
 @click.option("--help-info", is_flag=True, help="Show detailed help information about the filter tool")
-def filter_parsed(parser_output_file, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score, help_info):
+def filter_parsed(parser_output_file, min_align, min_avg_align, max_excl_pct, min_qual, help_info):
     """Filter parsed reads based on quality metrics
     
     Args:
         parser_output_file: Path to the parser output file
-        min_alignment_score: Minimum alignment score threshold
-        min_avg_score: Minimum average score threshold
-        max_excluded_pct: Maximum excluded percentage threshold
-        min_quality_score: Minimum quality score threshold
+        min_align: Minimum alignment score threshold (0.0 to 1.0)
+        min_avg_align: Minimum average score threshold (0.0 to 1.0)
+        max_excl_pct: Maximum excluded percentage threshold (0.0 to 100.0)
+        min_qual: Minimum quality score threshold (1.0 to 2.0)
     """
     if help_info:
         click.echo("""
@@ -230,14 +230,15 @@ def filter_parsed(parser_output_file, min_alignment_score, min_avg_score, max_ex
             parser_output_file - Path to the parser output file
 
             Example Usage:
-            hypetools filter-parsed parser_output.fasta --min-alignment-score 0.7
+            hypetools filter-parsed parser_output.fasta --min-alignment-score 0.7 
+            Per default, the tool will filter out reads where no motfs have been found.
         """)
 
     if not os.path.exists(parser_output_file):
         click.echo(f"Error: Parser output file '{parser_output_file}' does not exist.")
         return
     
-    filter_parsed_main(parser_output_file, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score)
+    filter_parsed_main(parser_output_file, min_align, min_avg_align, max_excl_pct, min_qual)
 
 @cli.command()
 @click.argument("parser_output_file")
