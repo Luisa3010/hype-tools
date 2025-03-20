@@ -40,10 +40,6 @@ def filter_parsed(parser_output_path, min_alignment_score=0.7, min_avg_score=0.9
             # Write the filtered reads to a new file
             write_results(filtered_output_path, result.header, result.read, result.motifs_df, (100 - result.excluded_pct)/100, result.avg_score)
 
-
-  
-    
-
 def filter_parsed_main(parser_output_path, min_alignment_score=0.7, min_avg_score=0.95, max_excluded_pct=0.05, min_quality_score=1.1):
 
     filter_parsed(parser_output_path, min_alignment_score, min_avg_score, max_excluded_pct, min_quality_score)
