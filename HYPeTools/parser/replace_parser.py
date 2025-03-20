@@ -418,6 +418,11 @@ def replace_main(motifs_file, hvds_file, input_path, start_index, end_index):
         logging.info(f"Processing {fasta_file}")
         logging.info(f"Writing to {output_file}")
 
+        # If the output file already exists, skip the processing
+        if os.path.exists(output_file):
+            print(f"Skipping: \n{fasta_file} \nOutput file already exists.")
+            continue
+
         # Create output file
         with open(output_file, 'w') as f:
             pass

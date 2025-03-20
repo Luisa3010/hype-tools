@@ -161,6 +161,7 @@ def load_parser_output(path):
 
 
 def write_results(output_file, header, read, replaced_motifs, coverage, average_alignment_score):
+    
     # Create output file if it doesn't exist
     if not os.path.exists(output_file):
         with open(output_file, 'w') as f:

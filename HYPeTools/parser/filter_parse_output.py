@@ -12,14 +12,8 @@ def filter_parsed(parser_output_path, min_alignment_score=0.7, min_avg_score=0.9
     print(f"Writing filtered reads to: \n{filtered_output_path}")
     # Check if the file already exists
     if os.path.exists(filtered_output_path):
-        overwrite = input("Do you want to overwrite the file? (y/n): ")
-        if overwrite == "y":
-            with open(filtered_output_path, 'w') as f:
-                pass
-        else:
-            print("Exiting...")
-            exit()
-
+        print(f"Skipping: \n{parser_output_path} \nOutput file already exists.")
+        return
 
     filtered_output = []
     for result in parser_output:

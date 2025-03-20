@@ -30,6 +30,11 @@ def process_fasta_file(input_path, output_path, start, end, start_index, end_ind
     print(c1_outfile)
     print(c2_outfile)
 
+    # If any of the output files already exist, skip the processing
+    if os.path.exists(hvd_outfile) or os.path.exists(c1_outfile) or os.path.exists(c2_outfile):
+        print(f"Skipping: \n{input_path} \nAt least one of the output files already exists.")
+        return
+
     # Open input and output files
     with open(input_path, 'r') as infile, open(hvd_outfile, 'w') as hvd_outfile, \
         open(c1_outfile, 'w') as c1_outfile, open(c2_outfile, 'w') as c2_outfile:

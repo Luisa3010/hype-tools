@@ -402,6 +402,11 @@ def synth_main(n, n_real, n_hybrid, n_severe, n_random_motif, n_block, n_full_ra
         
     # Set up logging
     logging.basicConfig(level=logging.INFO)
+
+    # If the output file already exists, skip the processing
+    if os.path.exists(output_dir + '/synthetic_sequences.fasta'):
+        print(f"Skipping: \n{output_dir} \nOutput file already exists.")
+        
     
     # Generate dataset
     synthetic_sequences = generate_synthetic_dataset(

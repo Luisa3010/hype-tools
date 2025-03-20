@@ -1,7 +1,12 @@
 from .utils import load_parser_output
-
+import os
 
 def compacter_output(parser_output_path, dna = True, protein = True):
+
+    # If any of the output files already exist, skip the processing
+    if os.path.exists(f'{parser_output_path}_compact_dna.fasta') or os.path.exists(f'{parser_output_path}_compact_protein.fasta'):
+        print(f"Skipping: \n{parser_output_path} \nAt least one of the output files already exists.")
+        return
 
     # Create output files
     if dna:
