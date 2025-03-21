@@ -89,17 +89,14 @@ def load_conserved(fasta_path):
 def create_hybrid_sequence(seq1, seq2):
     """Create a hybrid sequence from two parent sequences"""
     # Find a split point at a space character
-    print("\n\n")
-    print(seq1)
-    print(seq2)
+  
     spaces1 = [i for i, char in enumerate(seq1) if char == ' ']
     spaces2 = [i for i, char in enumerate(seq2) if char == ' ']
     split_point1 = random.choice(spaces1)
     split_point2 = random.choice(spaces2)
     # Combine sequences
     hybrid = seq1[:split_point1] + seq2[split_point2:]
-    print(hybrid)
-    print(len(hybrid))
+
     return hybrid
 
 
@@ -268,7 +265,6 @@ def generate_synthetic_dataset(
     
     # Load motifs
     motifs = load_motifs(motifs_path)
-    print(motifs)
     synthetic_dataset = []
     sequence_types = []
     # Set up logging
@@ -405,8 +401,8 @@ def synth_main(n, n_real, n_hybrid, n_severe, n_random_motif, n_block, n_full_ra
 
     # If the output file already exists, skip the processing
     if os.path.exists(output_dir + '/synthetic_sequences.fasta'):
-        print(f"Skipping: \n{output_dir} \nOutput file already exists.")
-        
+        print(f"Skipping: \n{output_dir} \nOutput files already exists.")
+        exit()
     
     # Generate dataset
     synthetic_sequences = generate_synthetic_dataset(
@@ -439,7 +435,6 @@ def synth_main(n, n_real, n_hybrid, n_severe, n_random_motif, n_block, n_full_ra
     logger.info("Writing sequences to fasta file")
 
     # Create output directory if it doesn't exist
-    output_dir = os.path.dirname(output_dir)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
