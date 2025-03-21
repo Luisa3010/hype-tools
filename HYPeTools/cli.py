@@ -141,6 +141,7 @@ def create_synth_reads(n, n_real, n_hybrid, n_severe, n_random_motif,
     """Create Synthetic HYP Reads
     
     Args:
+    
         n: Total number of reads - only used if n-real, n-hybrid, n-severe, n-random-motif, n-block or n-full-random are not provided
         n_real: Number of real reads
         n_hybrid: Number of hybrid reads
