@@ -15,7 +15,8 @@ Included data:
 - G. pallida HYP1 HVD markers
 - G. pallida HYP1 Motifs
 - G. pallida HYP1 Germline Sequences
-- Synthetic G. pallida HYP1 example HVDs
+
+
 
 ## Tools
 
@@ -28,6 +29,8 @@ specified start and end markers. It can process either a single FASTA file or a 
 ```bash
  hypetools extract-hvds "path/to/folder/or/fasta/file.fasta" --hvd-markers "path/to/hvd/markers.fasta" --start-index 2 --end-index 5
 ```
+
+
 
 
 ### Synthetic data generation
@@ -74,6 +77,8 @@ hype-tools synth --n 600 --real-input real.fasta --motifs motifs.json --output o
 ```
 
 
+
+
 ### HYPe Parsing
 
 This tool processes FASTA files by first detecting HVDs and then finding the motifs in the HVDs. The selection of possible motifs and HVD start and end markers can be provided by the user. This tool will output a table for each read containing the most likely sequence of motifs on a dna and protein level, their positions in the read and the quality of the parsing. If two or more motifs fit equally well, the tool will output all of them for one position.
@@ -92,6 +97,8 @@ Quality measures:
 The input can be a single fasta file or a directory containing multiple fasta files. 
 
 
+
+
 ### Report Generation
 
 With this tool, the user will be able to generate a report about about a parser output. The report will contain information about the HVDs, the motifs, and the quality of the parsing.
@@ -100,6 +107,8 @@ With this tool, the user will be able to generate a report about about a parser 
 ```bash
 hypetools generate-report path/to/your_replace_parse_results.txt 
 ```
+
+
 
 
 ### Compacted Parsed Reads 
@@ -119,6 +128,8 @@ hypetools compact-output path/to/your_replace_parse_results.txt --no-protein
 ```bash
 hypetools compact-output path/to/your_replace_parse_results.txt --no-dna    
 ```
+
+
 
 
 ### Filter Parsed Reads
@@ -158,9 +169,13 @@ Medium-quality:
 Setting the minimum quality score to 1.01 will remove all reads with ambiguous motifs.
 
 
+
+
 ## Data
 
 This package also includes data for G. pallida HYP1, which is used as default input for the tools. The user can specify their own data to use, which should be provided in the same format as the default data. Here is an overview of the formats of the data included in the package. You can find the data [here](https://github.com/Luisa3010/hype-tools/tree/main/HYPeTools/data).
+
+
 
 
 ### HVD markers
@@ -173,6 +188,8 @@ GAAAGTGGTAAAAGACCCGGGAGC
 >end
 CATAAACACGGAGGTTATGACGAG
 ```
+
+
 
 ### Motifs
 
@@ -211,7 +228,11 @@ CGTGACGATCAGCGCGGA
 ...
 ```
 
+
+
 ### Germline Sequences
+
+These are the sequences that have been observed very frequently as reads and therefore assumed to be germline alleles. They can be used to create synthetic data. They should be provided in a fasta file with spaces separating the motifs.
 
 ```fasta:germline_sequences.fasta
 >GPallida_HYP1_1
