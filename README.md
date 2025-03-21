@@ -160,7 +160,7 @@ Setting the minimum quality score to 1.01 will remove all reads with ambiguous m
 
 ## Data
 
-This package also includes data for G. pallida HYP1, which is used as default input for the tools. The user can specify their own data to use, which should be provided in the same format as the default data. Here is an overview of the formats of the data included in the package.
+This package also includes data for G. pallida HYP1, which is used as default input for the tools. The user can specify their own data to use, which should be provided in the same format as the default data. Here is an overview of the formats of the data included in the package. You can find the data [here](https://github.com/Luisa3010/hype-tools/tree/main/HYPeTools/data).
 
 
 ### HVD markers
@@ -221,6 +221,7 @@ TATGAGCGCGGAGGCGGA AGTGACCGCGGAGGCGGA CGTGACAATAAGCGCGGA ...
 >GPallida_HYP1_3
 ...
 ```
+
 
 
 
