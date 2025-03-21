@@ -39,6 +39,11 @@ from dataclasses import dataclass
 from tqdm import tqdm
 import os
 import Levenshtein 
+import warnings
+
+# Suppress pandas warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+pd.options.mode.chained_assignment = None  # default='warn'
 
 @dataclass
 class NumbersConfig:
