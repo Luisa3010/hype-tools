@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hype-tools"
-version = "0.1.1"
+version = "0.1.2"
 description = "A collection of tools for analyzing HYPe reads"
 authors = [{ name = "Luisa Kalkert", email = "luisa.kalkert@gmx.de" }]
 readme = "README.md"
@@ -24,12 +24,7 @@ dependencies = [
 hypetools = "HYPeTools.cli:cli"
 
 [tool.setuptools]
-packages = ["HYPeTools"]  # Ensure your package is included
+packages = ["HYPeTools"]
 
-[tool.setuptools.package-data]
-HYPeTools = ["data/**/*"]  # ✅ Includes all files and folders inside HYPeTools/data/
-
-[tool.setuptools.include-package-data]
-include = [
-    "HYPeTools/data/**/*"
-]
+[tool.setuptools.package-data] 
+HYPeTools = ["data/**/*"]  # ✅ Includes all files & folders inside data/
