@@ -17,11 +17,6 @@ Included data:
 - G. pallida HYP1 Germline Sequences
 - Synthetic G. pallida HYP1 example HVDs
 
-## Installation
-
-
-...
-
 ## Tools
 
 ### HVD detection
@@ -131,7 +126,7 @@ hypetools compact-output path/to/your_replace_parse_results.txt --no-dna
 With this tool, the user is able to filter the parsed reads based on the quality of the parsing. The user can filter based on the minimum alignment score, the excluded percentage, the quality score and the minimum average score.
 
 ```bash
-hypetools filter-parsed /path/to/your_replace_parse_results.txt --min-align 0.8 --max-excl-pct 10.0 --min-qual 1.2 --min-avg-align 0.8
+hypetools filter-parsed /path/to/your_replace_parse_results.txt --min-align 0.8 --max-excl-pct 10.0 --min-qual 1.01 --min-avg-align 0.8
 ```
 
 The user can filter for the following parameters:
@@ -146,21 +141,21 @@ Even if no parameters are provided, the tool will always filter out empty items.
 
 Perfectionist:
 - Maximum excluded percentage: 0.0
-- Minimum quality score: 1.2
+- Minimum quality score: 1.1
 - Minimum average alignment score: 1.0
 - Minimum alignment score: 1.0
 
 High-quality:
 - Maximum excluded percentage: 4
-- Minimum quality score: 1.2
+- Minimum quality score: 1.1
 - Minimum average alignment score: 0.8
 
 Medium-quality:
 - Maximum excluded percentage: 6
-- Minimum quality score: 1.2
+- Minimum quality score: 1.01
 - Minimum average alignment score: 0.95
 
-Setting the minimum quality score to 1.2 will remove all reads with ambiguous motifs.
+Setting the minimum quality score to 1.01 will remove all reads with ambiguous motifs.
 
 
 ## Example Data
