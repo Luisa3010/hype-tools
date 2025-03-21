@@ -160,8 +160,7 @@ def load_parser_output(path):
 
 
 
-def write_results(output_file, header, read, replaced_motifs, coverage, average_alignment_score):
-    
+def write_results(output_file, header, read, replaced_motifs, coverage, average_alignment_score):\
     # Create output file if it doesn't exist
     if not os.path.exists(output_file):
         with open(output_file, 'w') as f:
@@ -172,7 +171,8 @@ def write_results(output_file, header, read, replaced_motifs, coverage, average_
             f.write("No HVD found\n-\n")
         else:
             f.write(f"{read}\n")
-            f.write(f"{replaced_motifs}\n")
+            # Use to_string() to write full DataFrame content without truncation
+            f.write(f"{replaced_motifs.to_string(index=False)}\n")
         f.write(f"Excluded Bases: {((1 - coverage) * 100):.3f}%, Average alignment score: {average_alignment_score:.6f}\n")
 
 
