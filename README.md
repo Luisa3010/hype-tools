@@ -158,14 +158,69 @@ Medium-quality:
 Setting the minimum quality score to 1.01 will remove all reads with ambiguous motifs.
 
 
-## Example Data
+## Data
 
-This package also includes data for G. pallida HYP1.
+This package also includes data for G. pallida HYP1, which is used as default input for the tools. The user can specify their own data to use, which should be provided in the same format as the default data. Here is an overview of the formats of the data included in the package.
 
--  Synthetically generated G. pallida HYP1 data 
-- G. pallida HY1 HVD markers
-- G. pallida HYP1 Motifs
-- G. pallida HYP1 Germline Sequences
+
+### HVD markers
+
+This is a section of dna from the conserved domain right before and after the HVD.
+
+```fasta:HVD_markers.fasta
+>start
+GAAAGTGGTAAAAGACCCGGGAGC
+>end
+CATAAACACGGAGGTTATGACGAG
+```
+
+### Motifs
+
+For most of the tools, the user can provide motifs in a json file. The json file should contain a dictionary with the motif as the key and the corresponding protein sequence as the value.
+
+```json:motifs.json
+{
+    "TATGAGCGCGGAGGCGGA": "YERGGG",
+    "TATGAGCGCGGAGGCGGG": "YERGGG",
+    "TATGAACGCGGAGGCGGA": "YERGGG",
+    "AGTAACCGCGGAGGCGGA": "SNRGGG",
+    "AGTAACCGCGGGGGCGGA": "SNRGGG",
+    "AGTAACCGCGGAGGCGGG": "SNRGGG",
+    "AGTAACCGCGGGGGCGGG": "SNRGGG",
+    "AGTGACCGCGGAGAC": "SDRGD",
+    "AGTGACCGCGGAGAT": "SDRGD",
+    ...
+}
+```
+
+For the syntetic data generation tool, the motifs should be provided in a fasta file. If the user wants to generate sequences in a block format, the motifs should be provided in a fasta file where the headers contain the position of the motif in the HYP block.
+
+```fasta:motifs.fasta
+>motif1_pos1
+TATGAGCGCGGAGGCGGA
+>motif2_pos1
+AGTGACCGCGGAGAC
+>motif3_pos2
+CGTGACAATAAGCGCGGA
+>motif4_pos2
+CGTGACGATCAGCGCGGA
+>motif5_pos3
+CGTGACCGCGGAGAC
+>motif6_pos3
+CGTGACGATCAGCGCGGA
+...
+```
+
+### Germline Sequences
+
+```fasta:germline_sequences.fasta
+>GPallida_HYP1_1
+TATGAGCGCGGAGGCGGA AGTGACCGCGGAGGCGGG CGTGACCGCGGAGAC ...
+>GPallida_HYP1_2
+TATGAGCGCGGAGGCGGA AGTGACCGCGGAGGCGGA CGTGACAATAAGCGCGGA ...
+>GPallida_HYP1_3
+...
+```
 
 
 
