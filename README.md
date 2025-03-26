@@ -31,6 +31,13 @@ specified start and end markers. It can process either a single FASTA file or a 
 ```
 
 
+Options:
+  --hvd-markers TEXT     FASTA file containing the HVD marker sequences
+                         (default: GPallida HYP1 markers)
+  --start-index INTEGER  Start index of the first read to process, e.g. --start-index 10 will skip the first 9 reads.
+  --end-index INTEGER    End index of the last read to process, e.g. --end-index 90 will only process until the 90th read.
+
+
 
 
 ### Synthetic data generation
@@ -69,13 +76,29 @@ The user can specify the number of reads to generate for each category.
 ```bash
 hype-tools synth --n-real 100 --n-hybrid 200 --n-severe 100 --n-random-motif 10 --n-block 100 --n-full-random 100 --real-input real.fasta --motifs motifs.json --output output
 ```
-of
+
 or specify the total number of reads to generate and the input file.
 
 ```bash
 hype-tools synth --n 600 --real-input real.fasta --motifs motifs.json --output output
 ```
 
+Options:
+  --n INTEGER               Number of reads to generate, only used if n-real,
+                            n-hybrid, n-severe, n-random-motif, n-block or
+                            n-full-random are not provided
+  --n-real INTEGER          Number of real reads to generate
+  --n-hybrid INTEGER        Number of hybrid reads to generate
+  --n-severe INTEGER        Number of severe mutation reads to generate
+  --n-random-motif INTEGER  Number of random motif reads to generate
+  --n-block INTEGER         Number of block mutation reads to generate
+  --n-full-random INTEGER   Number of fully random reads to generate
+  --real-input TEXT         FASTA file containing real sequences, the motifs should be divided by spaces (default:
+                            GPallida germline)
+  --motifs TEXT             JSON file containing motif definitions (default:
+                            GPallida motifs)
+  --hvd-markers TEXT        FASTA file containing HVD marker sequences
+                            (default: GPallida HYP1 markers)
 
 
 
@@ -94,9 +117,11 @@ Quality measures:
  hypetools replace-parser /path/to/folder/or/fasta/file.fasta --hvds-file /path/to/hvd/markers.fasta --motifs-file /path/to/motifs.json --start-index 3 --end-index 6 
 ```
 
-The input can be a single fasta file or a directory containing multiple fasta files. 
-
-
+Options:
+  --motifs-file TEXT     JSON file containing motif dna and protein sequences
+  --hvds-file TEXT       FASTA file containing the HVD marker sequences
+  --start-index INTEGER  Start index of the first read to process, e.g. --start-index 10 will skip the first 9 reads.
+  --end-index INTEGER    End index of the last read to process, e.g. --end-index 90 will only process until the 90th read.
 
 
 ### Report Generation
@@ -129,6 +154,10 @@ hypetools compact-output path/to/your_replace_parse_results.txt --no-protein
 hypetools compact-output path/to/your_replace_parse_results.txt --no-dna    
 ```
 
+Options:
+  --dna / --no-dna          Output DNA motifs (default: True)
+  --protein / --no-protein  Output protein motifs (default: True)
+
 
 
 
@@ -140,11 +169,11 @@ With this tool, the user is able to filter the parsed reads based on the quality
 hypetools filter-parsed /path/to/your_replace_parse_results.txt --min-align 0.8 --max-excl-pct 10.0 --min-qual 1.01 --min-avg-align 0.8
 ```
 
-The user can filter for the following parameters:
-- Minimum alignment score (0-1) required for individual motifs
-- Minimum average alignment score (0-1) across all motifs in a read
-- Maximum percentage (0-100) of bases that can be excluded from motif matches
-- Minimum quality score (1-2) required for motif assignments
+Options:
+  --min-align FLOAT      Minimum alignment score threshold for individual motifs, (0 - 1)
+  --min-avg-align FLOAT  Minimum average alignment score threshold for all motifs in a read, (0 - 1)
+  --max-excl-pct FLOAT   Maximum excluded percentage threshold, percentage of bases that can be excluded from motif matches (0 - 100)
+  --min-qual FLOAT       Minimum quality score threshold, indicates confidence in the motif assignment (1 - 2)
 
 Even if no parameters are provided, the tool will always filter out empty items. E.g. reads that do not have any motifs or reads where no HVD was found.
 
