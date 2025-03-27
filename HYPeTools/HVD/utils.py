@@ -9,7 +9,7 @@ def find_in_read(dna, read):
 
     return pos, score
 
-def extract_hvd_from_read(read, start, end, threshold = 0.75, rev = True):
+def extract_hvd_from_read(read, start, end, threshold = 0.5, rev = True):
     
     # find the start and end of the HVD in the read
     start_pos, start_score = find_in_read(start, read)

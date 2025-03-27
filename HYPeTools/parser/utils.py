@@ -25,7 +25,7 @@ def create_output_filename(fasta_file, start_index=0, end_index=float('inf')):
         ext = "_" + str(start_index)
     if end_index != float('inf'):
         ext = "_" + str(start_index) + "to" + str(end_index)
-    return output_folder + f'/{'.'.join(filename.split(".")[:-1])}_replace_parse_result{ext}.txt'
+    return output_folder + f'{'.'.join(filename.split(".")[:-1])}_replace_parse_result{ext}.txt'
 
 
 
