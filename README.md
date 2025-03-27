@@ -17,7 +17,6 @@ Included data:
 - G. pallida HYP1 Germline Sequences
 
 
-
 ## Tools
 
 ### HVD detection
