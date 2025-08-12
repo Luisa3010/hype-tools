@@ -54,14 +54,21 @@ def find_fastas(path):
 
 
 def read_fasta(path):
-    # Read a fasta file as iterator
+    # Read a fasta file as iterator, supporting multiline sequences
+    header = None
+    seq_lines = []
     with open(path, 'r') as f:
         for line in f:
+            line = line.rstrip()
             if line.startswith('>'):
+                if header is not None:
+                    yield header, ''.join(seq_lines)
                 header = line.strip()
+                seq_lines = []
             else:
-                read = line.strip()
-                yield header, read
+                seq_lines.append(line.strip())
+        if header is not None:
+            yield header, ''.join(seq_lines)
 
 
 def dumb_consensus(dna_sequences: List[str]):    
