@@ -144,7 +144,7 @@ def load_parser_output(path):
                 
                 # Create DataFrame from rows
                 df_rows = [row.replace(', ', '*').split() for row in df_rows]
-                motifs_df = pd.DataFrame(df_rows, columns=['id','start_pos', 'end_pos', 'original_dna', 'motif', 'alignment_score', 'amino_acid', 'quality_score'])
+                motifs_df = pd.DataFrame(df_rows, columns=['start_pos', 'end_pos', 'original_dna', 'motif', 'alignment_score', 'amino_acid', 'quality_score'])
                 motifs_df['amino_acid'] = motifs_df['amino_acid'].str.replace('*', ', ')
 
                 # Convert numeric columns to appropriate types
