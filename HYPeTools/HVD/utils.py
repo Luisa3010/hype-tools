@@ -19,8 +19,8 @@ def extract_hvd_from_read(read, start, end, threshold = 0.5, rev = True):
     # if scores are too low, try reverse complement
     if rev and (start_score < threshold or end_score < threshold):
         # create reverse complement
-        complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
-        rev_comp = ''.join(complement[base] for base in reversed(read))
+        complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'N': 'N'}
+        rev_comp = ''.join(complement[base.upper()] for base in reversed(read))
         
         # check scores with reverse complement
         start_pos_rc, start_score_rc = find_in_read(start, rev_comp)

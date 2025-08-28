@@ -48,7 +48,7 @@ def process_fasta_file(input_path, output_path, start, end, start_index, end_ind
                 break
 
             # Process the read to extract HVD
-            hvd, c1, c2 = extract_hvd_from_read(sequence, start, end)
+            hvd, c1, c2 = extract_hvd_from_read(sequence, start, end, threshold = 0.5)
             # Write header and HVD sequence
             hvd_outfile.write(f"{header}\n")
             hvd_outfile.write(f"{hvd}\n")
